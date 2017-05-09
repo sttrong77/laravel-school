@@ -53,11 +53,27 @@ class SchoolController extends Controller
 
     public function lesson($url){
 
-      $lesson = Lesson::where('url',$url)->get()->first();
+      // $lesson = Lesson::where('url',$url)->get()->first();
+
+      $lesson = Lesson::join('modules','modules.id','=','lessons.module_id')
+                ->join('courses','courses.id','=','modules.course_id')
+                ->join('users','users.id','=','courses.user_id')
+                ->where('lessons.url',$url)
+                ->select('lessons.name',
+                         'lessons.url',
+                         'lessons.description',
+                         'lessons.video',
+                         'courses.name as course',
+                         'courses.url as course_url',
+                         'modules.name as modulo',
+                         'modules.id as modulo_id',
+                         'users.name as user_name',
+                         'users.bibliography as user_description',
+                         'users.image as user_image'
+                )
+                ->get()->first();
 
       $title = "Aula {$lesson->name} - LaraSchool";
-
-      $user = $lesson->user()->get();
 
       return view('school.site.lesson',compact('lesson','title','user'));
 

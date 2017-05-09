@@ -11,9 +11,9 @@
     </div>
 
     <ol class="breadcrumb">
-      <li><a href="#">JavaScript</a></li>
-      <li><a href="#">Módulo Básico</a></li>
-      <li class="active">Título da Aula Vem Aqui</li>
+      <li><a href="{{route('course',$lesson->course_url)}}">{{$lesson->course}}</a></li>
+      <li><a href="{{route('course',$lesson->course_url)}}">{{$lesson->modulo}}</a></li>
+      <li class="active">{{$lesson->name}}</li>
     </ol>
 
     <h1 class="title-lesson">{{$lesson->name}}</h1>
@@ -25,28 +25,23 @@
     <div class="share">
       <ul class="social-share">
         <li>
-          <a href="" class="facebook">
+          <a href="javascript:void(0)" class="facebook" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u={{Request::URL()}}', 'width=626,height=436'); return false;">
             <i class="fa fa-facebook" aria-hidden="true"></i>
           </a>
         </li>
         <li>
-          <a href="" class="twitter">
+          <a href="javascript:void(0)" class="twitter" onclick="window.open('http://twittter.com/share?url={{Request::URL()}}', 'width=626,height=436'); return false;">
             <i class="fa fa-twitter" aria-hidden="true"></i>
           </a>
         </li>
         <li>
-          <a href="" class="google-plus">
+          <a href="javascript:void(0)" class="google-plus" onclick="window.open('https://plus.google.com/share?url={{Request::URL()}}', 'width=626,height=436'); return false;">
             <i class="fa fa-google-plus" aria-hidden="true"></i>
           </a>
         </li>
         <li>
-          <a href="" class="linkedin">
+          <a href="javascript:void(0)" class="linkedin" onclick="window.open('https://www.linkedin.com/shareArticle?mini=true&url={{Request::URL()}}', 'width=626,height=436'); return false;">
             <i class="fa fa-linkedin" aria-hidden="true"></i>
-          </a>
-        </li>
-        <li>
-          <a href="" class="youtube">
-            <i class="fa fa-youtube" aria-hidden="true"></i>
           </a>
         </li>
       </ul>
@@ -54,11 +49,15 @@
 
     <section class="author">
       <div class="col-md-2 text-center">
-        <img src="imgs/student.png" alt="Carlos Ferreira" class="img-circle">
+        @if($lesson->user_image != '')
+          <img src="{{url("uploads/users/$lesson->user_image")}}" alt="{{$lesson->name}}" class="img-circle">
+        @else
+          <img src="{{url('assets/imgs/profile.png')}}" alt="{{$course->name}}" class="img-circle">
+        @endif
       </div>
       <div class="col-md-10">
-        <h2>{{$user->name}}</h2>
-        <p>Descrição completa deste professor por vir vem aqui.</p>
+        <h2>{{$lesson->user_name}}</h2>
+        <p>{{$lesson->user_description}}</p>
       </div>
     </section><!--Author-->
 
