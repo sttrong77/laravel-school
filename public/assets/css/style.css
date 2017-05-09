@@ -1,0 +1,291 @@
+.logo{
+    max-width: 200px;
+}
+.nav-header{
+    background: #fb503b;
+    padding: 4px 0px;
+}
+img.img-profile{
+    background: #FFF;
+    border-radius: 100%;
+    width: 50px;
+}
+.menu-itens{margin-top: 45px;padding: 0px;margin-left: 12px;}
+.menu-profile{margin-top: 22px;padding: 0px;}
+
+.content{}
+.title{
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 2em;
+    color: #666;
+}
+
+.courses{}
+.course{
+    border: 1px solid #999;
+    margin: 30px auto;
+    max-width: 240px;
+    position: relative;
+    min-height: 230px;
+}
+.course img{}
+.title-course{
+    color: #6f6f6f;
+    font-size: 1.2em;
+    margin: 8px;
+}
+.btn-view{
+    background: #fb503b;
+    color: #FFF;
+    width: 100%;
+    /* float: left; */
+    text-align: center;
+    padding: 10px;
+    font-size: 1.2em;
+    margin-top: 10px;
+    position: absolute;
+    bottom: 0;
+}
+.btn-view:hover{text-decoration: none;color: #FFF;background: #ca4838;}
+
+.footer{
+    background: #f7aba2;
+    padding: 20px 0px;
+    float: left;
+    width: 100%;
+}
+img.logo-footer{
+    max-width: 150px;
+}
+.copy{
+    background: #e6988f;
+    margin: 0px;
+    padding: 6px 0px;
+    float: left;
+    width: 100%;
+}
+.copy p{
+    color: #FFF;
+    font-size: .8em;
+    margin: 0px;
+}
+ul.social{
+    margin: 14px 0px 0px 0px;
+}
+ul.social li{
+    display: inline-block;
+}
+ul.social li a{
+    padding: 5px 10px;
+    font-size: .8em;
+    color: #FFF;
+}
+
+
+.details-course{
+    background: #333;
+    float: left;
+    width: 100%;
+    color: #FFF;
+    padding: 30px 0px;
+}
+.title-course-detail{
+    text-transform: uppercase;
+    font-size: 2em;
+    font-weight: bold;
+}
+.description-course{
+    font-size: 1em;
+    margin: 6px 0px 40px 0px;
+}
+p.info{
+    font-size: 1.2em;
+}
+p.info strong{
+    font-weight: bold;
+}
+img.img-course-detail{
+    border: 10px solid #FFF;
+}
+.btn-buy{
+    background: #e27517;
+    width: 100%;
+    float: left;
+    margin: 10px 0px;
+    padding: 10px 20px;
+    font-size: 1.4em;
+    text-transform: uppercase;
+    color: #FFF;
+    font-weight: bold;
+    box-shadow: 0px 1px 4px #a05d23;
+}
+.btn-buy:hover{
+    color: #FFF;
+    text-decoration: none;
+    opacity: .9;
+}
+
+
+.details-course-itens{float: left; width: 100%; padding: 40px 0px;}
+.lesson{
+    float: left;
+    width: 100%;
+    margin: 6px 0px;
+    color: #333;
+}
+.badge-free{
+    background: #2da547;
+}
+
+.form-school{}
+.btn-form{
+    background: #e27433;
+    width: 100%;
+    font-size: 1.2em;
+    color: #FFF;
+    font-weight: bold;
+    border-radius: 0px;
+}
+.pg-form{
+    width: 600px;
+    max-width: 100%;
+    margin: 40px auto;
+    min-height: 400px;
+}
+
+.students{}
+.student{
+    margin: 20px 0px;
+}
+.student-img{
+    max-width: 100px;
+}
+.student h2{
+    font-size: 1em;
+    font-weight: bold;
+    color: #333;
+    margin: 4px 0px;
+}
+
+.img-student-detail{max-width: 200px;}
+
+.sales a{color: #000;}
+
+.form-search{
+    float: left;
+    width: 100%;
+    margin: 40px 0px;
+}
+.btn-search{
+    height: 45px;
+    border-radius: 0px;
+    color: #FFF !important;
+    font-weight: bold;
+    background: #fb503b;
+}
+
+
+.lesson-info{
+    margin: 60px 0px;
+    float: left;
+}
+.title-lesson{
+    text-transform: uppercase;
+    font-size: 2em;
+    margin: 10px 0px;
+    color: #666;
+}
+.description-lesson{}
+.description-lesson p{
+    font-size: 1em;
+    margin-bottom: 30px;
+    color: #333;
+}
+.share{}
+ul.social-share{}
+ul.social-share li{
+    display: inline-block;
+}
+ul.social-share li a{
+    width: 25px;
+    float: left;
+    text-align: center;
+    padding: 4px;
+}
+ul.social-share li a:hover{}
+.author{
+    float: left;
+    width: 100%;
+    margin: 20px 0px;
+    padding: 10px 4px;
+    background: #f3f3f3;
+}
+.author img{}
+.author h2{
+    font-size: 1.2em;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin: 10px 0px;
+}
+.author p{
+    font-size: 1em;
+    color: #888484;
+    font-weight: lighter;
+}
+.comment{margin: 20px 0px; float: left; width: 100%;}
+.img-lesson-block{
+    position: relative;
+}
+.img-lesson-block img{}
+.img-lesson-block a{
+    position: absolute;
+    bottom: 0px;
+    float: left;
+    width: 100%;
+    padding: 10px;
+    height: 78px;
+    background: #fd351e;
+    color: #FFF;
+    font-size: 1.8em;
+    text-transform: uppercase;
+    text-align: center;
+}
+.btn-view-teacher{
+    float: left;
+    width: 33.3333333%;
+    bottom: 0px;
+    position: absolute;
+    background: #06083e;
+    color: #FFF !important;
+    text-align: center;
+    padding: 10px 0px;
+}
+.btn-view-edit{
+    float: right;
+    width: 34%;
+    bottom: 0px;
+    position: absolute;
+    background: #d25151;
+    color: #FFF;
+    text-align: center;
+    padding: 10px 0px;
+    right: 79px;
+}
+.btn-module-teacher{
+    float: right;
+    width: 33.33333333333%;
+    bottom: 0px;
+    position: absolute;
+    background: #55c158;
+    color: #FFF;
+    text-align: center;
+    padding: 10px 0px;
+    right: 0px;
+}
+.btn-create{
+  background: #fb503b;
+  color: #FFF;
+  margin: 10px 0px;
+  border-radius: 0px;
+}
