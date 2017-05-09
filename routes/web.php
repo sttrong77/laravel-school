@@ -38,6 +38,8 @@ $this->post('profile-update','UserController@profileUpdate')->name('profile.upda
 $this->get('logout', 'UserController@logout');
 Auth::routes();
 
+$this->get('aula/{url}','SchoolController@lesson')->name('lesson');
+
 $this->get('curso/{url}','SchoolController@course')->name('course');
 
 $this->get('/', 'SchoolController@index')->name('home');

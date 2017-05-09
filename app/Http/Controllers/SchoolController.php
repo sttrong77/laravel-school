@@ -5,11 +5,12 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Course;
 use App\Models\Category;
+use App\Models\Lesson;
 
 class SchoolController extends Controller
 {
 
-    private $totalPage = 1;
+    private $totalPage = 10;
 
     public function index(Course $course){
 
@@ -38,5 +39,27 @@ class SchoolController extends Controller
       $categories = Category::pluck('name','id');
 
       return view('school.home.index',compact('courses','title','categories','dataForm'));
+    }
+
+    public function course(Course $course, $url){
+      $course = $course->where('url',$url)->get()->first();
+
+      $title = "Curso {$course->name} - LaraSchool";
+
+      $modules = $course->modules()->with('lessons')->get();//uma consulta que traga os módulos do do curso e as lessons do module
+
+      return view('school.site.course',compact('course','title','modules'));
+    }
+
+    public function lesson($url){
+
+      $lesson = Lesson::where('url',$url)->get()->first();
+
+      $title = "Aula {$lesson->name} - LaraSchool";
+
+      $user = $lesson->user()->get();
+
+      return view('school.site.lesson',compact('lesson','title','user'));
+
     }
 }

@@ -34,7 +34,7 @@
 
       <h2 class="title-course">{{$course->name}}</h2>
 
-      <a href="?pg=curso" class="btn-view">Saiba Mais</a>
+      <a href="{{route('course',$course->url)}}" class="btn-view">Saiba Mais</a>
     </div>
   </article>
   @endforeach
