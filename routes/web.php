@@ -18,6 +18,14 @@ $this->group(['middleware'=>'auth'],function(){
   $this->get('curso/{id}/modulos', 'ModuleController@byCourseId')->name('course.modules'); //rota especifica pra modulo
   $this->resource('modulos','ModuleController', ['except'=>'index']);
 
+  $this->get('minhas-compras','SchoolController@myCourses')->name('sales');//Meus Cursos
+
+  $this->get('minhas-vendas','TeacherController@mySales')->name('my.sales');//Meus Cursos
+
+  $this->get('meus-alunos','TeacherController@myStudents')->name('my.students');//Meus Cursos
+
+
+
   /*********************************************************
   *Gestão de Lessons (Controller resource)
   *********************************************************/

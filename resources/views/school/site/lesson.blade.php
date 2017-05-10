@@ -6,6 +6,7 @@
 <div class="lesson-info">
 
   <div class="col-md-8">
+      @if( auth()->check()  && ($lesson->lesson_free || $course->course_free))
     <div class="embed-responsive embed-responsive-16by9">
       <iframe width="560" height="315" src="https://www.youtube.com/embed/founBXufLYg" frameborder="0" allowfullscreen></iframe>
     </div>
@@ -22,6 +23,19 @@
       <p>{{$lesson->description}}</p>
     </div>
 
+    @else
+    <div class="img-lesson-block">
+      <img src="{{url('assets/imgs/block.jpg')}}" alt="Lock" class="lesson-lock">
+
+      @if( !auth()->check() )
+        <a href={{url('login')}}>Faça Login Para Ter Acesso!</a>
+      @else
+        <a href={{route('course',$lesson->course_url)}}>Compre esse curso para ter acesso a aula</a>
+      @endif
+    </div>
+
+
+    @endif
     <div class="share">
       <ul class="social-share">
         <li>

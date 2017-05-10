@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Course;
 use App\Models\Category;
 use App\Models\Lesson;
+use App\Models\Sale;
 
 class SchoolController extends Controller
 {
@@ -63,8 +64,10 @@ class SchoolController extends Controller
                          'lessons.url',
                          'lessons.description',
                          'lessons.video',
+                         'lessons.free as lesson_free',
                          'courses.name as course',
                          'courses.url as course_url',
+                         'courses.free as course_free',
                          'modules.name as modulo',
                          'modules.id as modulo_id',
                          'users.name as user_name',
@@ -77,5 +80,13 @@ class SchoolController extends Controller
 
       return view('school.site.lesson',compact('lesson','title','user'));
 
+    }
+
+    public function myCourses(Sale $sale){
+      $sales = $sale->myCourses($this->totalPage);
+
+      $title = "Meus cursos - LaraSchool";
+
+      return view('school.site.my-courses',compact('sales','title'));
     }
 }

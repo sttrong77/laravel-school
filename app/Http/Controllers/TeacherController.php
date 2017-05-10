@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Course;
+use App\Models\Sale;
 use App\Http\Requests\CourseRequest;
 
 class TeacherController extends Controller
@@ -128,5 +129,21 @@ class TeacherController extends Controller
       return redirect()->route('teacher.courses')->with('success','Curso deletado com sucesso');
     }
       return redirect()->back()->with('error','Delete os módulos deste curso primeiramente');
+  }
+
+  public function mySales(Sale $sale){
+    $sales = $sale->mySales();
+
+    $title = "Minhas Vendas - LaraSchool";
+
+    return view('school.teacher.sales.sales',compact('sales','title'));
+  }
+
+  public function myStudents(Sale $sale){
+    $students = $sale->myStudents();
+
+    $title = "Meus Alunos - LaraSchool";
+
+    return view('school.teacher.sales.students',compact('students','title'));
   }
 }
