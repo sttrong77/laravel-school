@@ -50,6 +50,10 @@ $this->get('aula/{url}','SchoolController@lesson')->name('lesson');
 
 $this->get('curso/{url}','SchoolController@course')->name('course');
 
+$this->get('usuario/{id}','SchoolController@user')->name('user');
+
+
+
 $this->get('/', 'SchoolController@index')->name('home');
 
 $this->post('curso-pesquisar','SchoolController@search')->name('courses.search');

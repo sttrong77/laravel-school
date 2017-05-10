@@ -7,6 +7,7 @@ use App\Models\Course;
 use App\Models\Category;
 use App\Models\Lesson;
 use App\Models\Sale;
+use App\User;
 
 class SchoolController extends Controller
 {
@@ -43,7 +44,9 @@ class SchoolController extends Controller
     }
 
     public function course(Course $course, $url){
-      $course = $course->where('url',$url)->get()->first();
+      $course = $course->where('url',$url)->with('user')->get()->first();
+
+
 
       $title = "Curso {$course->name} - LaraSchool";
 
@@ -89,4 +92,13 @@ class SchoolController extends Controller
 
       return view('school.site.my-courses',compact('sales','title'));
     }
+
+    public function user(User $user, $id){
+      $user = $user->find($id);
+
+      $title = "Perfil Usuário {$user->name} - LaraSchool";
+
+      return view('school.site.user-profile',compact('user','title'));
+    }
+
 }
