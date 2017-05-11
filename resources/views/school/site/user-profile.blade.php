@@ -22,20 +22,21 @@
 <div class="details-course-itens">
 	<div class="container">
 
-		<?php
-			for($i = 0; $i < 6; $i++){
-		?>
-		<article class="col-md-3 col-sm-6 col-xm-12">
-			<div class="course">
-				<img src="imgs/courses/curso-laravel-acl-especializati.png" alt="Course">
+    @foreach($courses as $course)
+    <article class="col-md-3 col-sm-6 col-xm-12">
+      <div class="course">
+        @if($course->image != null)
+          <img src="{{url("uploads/courses/$course->image")}}" alt="{{$course->name}}">
+        @else
+          <img src="{{url('assets/imgs/courses/no-image.png')}}" alt="{{$course->name}}">
+        @endif
 
-				<h2 class="title-course">Curso de Vagrant <?=$i?></h2>
+        <h2 class="title-course">{{$course->name}}</h2>
 
-				<a href="?pg=curso" class="btn-view">Saiba Mais</a>
-			</div>
-		</article>
-
-		<?php } ?>
+        <a href="{{route('course',$course->url)}}" class="btn-view">Saiba Mais</a>
+      </div>
+    </article>
+    @endforeach
 
 	</div>
 </div><!--Details Curso Ementa-->

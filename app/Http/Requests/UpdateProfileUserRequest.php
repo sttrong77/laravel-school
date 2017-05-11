@@ -27,6 +27,7 @@ class UpdateProfileUserRequest extends FormRequest
         return [
           'name'        =>'required|min:3|max:100',
           'email'       =>"required|min:3|max:100|email|unique:users,email,{$id},id",
+          'url'       =>"required|min:3|max:20|unique:users,url,{$id},id",
           'password'    =>'max:15|confirmed',
           'image'       =>'image',
           'token'       =>'max:250',

@@ -50,7 +50,9 @@ $this->get('aula/{url}','SchoolController@lesson')->name('lesson');
 
 $this->get('curso/{url}','SchoolController@course')->name('course');
 
-$this->get('usuario/{id}','SchoolController@user')->name('user');
+$this->get('usuario/{url}','SchoolController@user')->name('user');
+
+$this->get('pedido-realizado','SchoolController@success')->name('success');
 
 
 

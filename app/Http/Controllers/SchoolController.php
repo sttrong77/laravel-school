@@ -93,12 +93,19 @@ class SchoolController extends Controller
       return view('school.site.my-courses',compact('sales','title'));
     }
 
-    public function user(User $user, $id){
-      $user = $user->find($id);
+    public function user(User $user, $url){
+      $user = $user->with('courses')->where('url',$url)->get()->first();
+
+      $courses = $user->courses;
 
       $title = "Perfil Usuário {$user->name} - LaraSchool";
 
-      return view('school.site.user-profile',compact('user','title'));
+      return view('school.site.user-profile',compact('user','title','courses'));
+    }
+
+    public function success(){
+      $title ='Parabéns, pedido realizado com sucesso!';
+      return view('school.site.success',compact('title'));
     }
 
 }
