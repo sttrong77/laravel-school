@@ -9,8 +9,8 @@
   @forelse($students as $student)
   <article class="col-md-2 col-sm-4 col-xm-6 student">
     <a href="?pg=student-detail">
-      @if($student->user_name != '')
-        <img src="{{url('uploads/users/'.$student->user_name)}}" alt="$student->user_name" class="student-img img-circle">
+      @if($student->user_image != '')
+        <img src="{{url('uploads/users/'.$student->user_image)}}" alt="$student->user_name" class="student-img img-circle">
       @else
         <img src="{{url('assets/imgs/profile.png')}}" alt="$student->user_name" class="student-img img-circle">
       @endif

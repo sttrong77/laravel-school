@@ -3,9 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class Sale extends Model
 {
+
+  protected $fillable = ['course_id','user_id','transaction','status','date'];
 
   public $timestamps = false;
 
@@ -36,4 +39,9 @@ class Sale extends Model
   public function myStudents(){
     return $this->mySales();
   }
+
+  public function getDateAttribute($value){ //mutator
+    return Carbon::parse($value)->format('d/m/Y');
+  }
+
 }
