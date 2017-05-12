@@ -44,7 +44,7 @@ class SchoolController extends Controller
     }
 
     public function course(Course $course, $url){
-      $course = $course->where('url',$url)->with('user')->get()->first();
+      $course = $course->where('url',$url)->with('user','users')->get()->first();
 
 
 
@@ -68,6 +68,7 @@ class SchoolController extends Controller
                          'lessons.description',
                          'lessons.video',
                          'lessons.free as lesson_free',
+                         'courses.id as course_id',
                          'courses.name as course',
                          'courses.url as course_url',
                          'courses.free as course_free',

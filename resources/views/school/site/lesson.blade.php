@@ -6,7 +6,7 @@
 <div class="lesson-info">
 
   <div class="col-md-8">
-      @if( auth()->check()  && ($lesson->lesson_free || $course->course_free))
+      @if( auth()->check()  && ($lesson->lesson_free || $lesson->course_free || Auth()->user()->checkAccess($lesson->course_id)))
     <div class="embed-responsive embed-responsive-16by9">
       <iframe width="560" height="315" src="https://www.youtube.com/embed/founBXufLYg" frameborder="0" allowfullscreen></iframe>
     </div>

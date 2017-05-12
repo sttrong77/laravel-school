@@ -31,4 +31,24 @@ class User extends Authenticatable
     public function courses(){
       return $this->hasMany(Course::class);
     }
+
+    public function checkAccess($idCourse){
+      if(!auth()->check())
+        return false;
+
+      $permission = $this->join('sales','sales.user_id','=','users.id')
+           ->where('sales.user_id',auth()->user()->id)
+           ->where('sales.course_id',$idCourse)
+           ->where('sales.status', 'approved')
+           ->count();
+
+      if($permission > 0)
+        return true;
+
+      return false;
+
+
+
+    }
+
 }

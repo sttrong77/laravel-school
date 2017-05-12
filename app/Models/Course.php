@@ -34,7 +34,13 @@ class Course extends Model
   }
 
   public function user(){
-    return $this->belongsTo(\App\User::class);
+    return $this->belongsTo(User::class);
   }
+
+  public function users(){
+    return $this->belongsToMany(User::class,'sales','course_id','user_id')
+                ->where('sales.status','approved');//model;tabela;campos de relacionamento
+  }
+
 
 }

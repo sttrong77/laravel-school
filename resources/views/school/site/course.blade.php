@@ -9,7 +9,7 @@
     <h2 class="description-course">{{$course->description}}</h2>
 
     <p class="info"><strong>Categoria:</strong> {{$course->category_id}}</p>
-    <p class="info"><strong>Total de Alunos:</strong>...</p>
+    <p class="info"><strong>Total de Alunos: </strong>{{$course->users->count()}}</p>
     <p class="info"><strong>Professor:</strong><a href="{{route('user',$course->user->url)}}">{{$course->user->name}}</a></p>
     <p class="info"><strong>Gratuito:</strong>
       @if($course->free) SIM @else NAO @endif
@@ -30,7 +30,7 @@
       <img src="{{url('assets/imgs/courses/no-image.png')}}" alt="{{$course->name}}">
     @endif
 
-    <a href="{{url($course->link_buy)}}" class="btn-buy">Comprar Agora!</a>
+    <a href="https://pay.hotmart.com/{{$course->link_buy}}" class="btn-buy">Comprar Agora!</a>
   </div>
 </div>
 

@@ -5,6 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
 
+use App\Models\Course;
+use App\User;
+use App\Models\Sale;
+use Mail;
+use App\Mail\NewSaleStudent;
+use App\Mail\NewStudentSale;
+
 class Sale extends Model
 {
 
@@ -42,6 +49,64 @@ class Sale extends Model
 
   public function getDateAttribute($value){ //mutator
     return Carbon::parse($value)->format('d/m/Y');
+  }
+
+  public function newSale($data){
+    $course = Course::where('code',$data['prod'])->get()->first();
+
+    if($course == null)
+      return response()->json(['status'=>'Course not found'],404);
+
+    $user = User::where('token',$data['hottok'])->get()->first();
+
+    if($user == null)
+      return response()->json(['status'=>'User not found'],404);
+
+    if($course->user_id != $user->id)
+      return response()->json(['error'=>'Not permission'],401);
+
+    if($data['status'] == 'canceled'){
+      $sale = Sale::where('transaction',$data['transaction'])->get()->first();
+      if($sale){
+        Sale::where('transaction',$data['transaction'])->update([
+          'status'=>'canceled'
+        ]);
+      }
+    }
+
+    if($data['status'] != 'approved')
+      return response()->json(['status'=>'Pedido não liberado'],401);
+
+    $student = User::where('email',$data['email'])->get()->first();
+
+    if($student == null){//se usuario tá comprando curso mas não está cadastrado
+      $password = generatePassword();
+      $student = User::create([
+        'name'      => $data['name'],
+        'email'     => $data['email'],
+        'url'       => createUrl($data['name']),
+        'password'  => bcrypt($password)
+      ]);
+
+      Mail::to($data['email'])->send(new NewStudentSale($student,$course, $password));
+    }else{
+      Mail::to($data['email'])->send(new NewSaleStudent($student,$course));
+    }
+
+    $date = Carbon::parse($data['purchase_date'])->format('Y-m-d');
+
+    $newSale = Sale::create([
+      'course_id'=>$course->id,
+      'user_id'=>$student->id,
+      'transaction'=>$data['transaction'],
+      'status'=>$data['status'],
+      'date'=>$date
+    ]);
+
+    if($newSale)
+      return response()->json(['success'=>'Success'],200);
+    else
+      return response()->json(['error'=>'Fail insert'],500);
   }
 
 }
