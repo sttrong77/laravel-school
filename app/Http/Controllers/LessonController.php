@@ -20,6 +20,11 @@ class LessonController extends Controller
     public function byModuleId($id)
     {
       $module = Module::find($id);
+
+      $course = $module->course;
+
+      $this->authorize('owner-course', $course);
+
       $lessons = $module->lessons()->paginate($this->totalPage);
 
       $title = "Aulas do Módulo {$module->name}";
@@ -32,11 +37,11 @@ class LessonController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Module $module)
     {
       $title = "Cadastrando nova aula";
 
-      $modules = Module::pluck('name','id');
+      $modules = $module->modulesUser();
 
       return view('school.teacher.courses.lessons.create-edit',compact('title','modules'));
     }
@@ -78,13 +83,13 @@ class LessonController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Module $module, $id)
     {
       $lesson = $this->lesson->find($id);
 
       $title = "Editar Aula {$lesson->name}";
 
-      $modules = Module::pluck('name','id');
+      $modules = $module->modulesUser();
 
       return view('school.teacher.courses.lessons.create-edit',compact('lesson','title','modules'));
     }
@@ -120,6 +125,10 @@ class LessonController extends Controller
     public function destroy(Request $request, $id)
     {
       $lesson = $this->lesson->find($id);
+
+      $module = $lesson->module;
+
+      $this->authorize('owner-course',$course);
 
       $lesson->delete();
 

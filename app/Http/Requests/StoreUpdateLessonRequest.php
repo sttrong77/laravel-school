@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Models\Module;
+use Gate;
 
 class StoreUpdateLessonRequest extends FormRequest
 {
@@ -13,7 +15,12 @@ class StoreUpdateLessonRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+      $module = Module::with('course')->find($this->get('module_id'));
+
+      $course = $module->course;
+
+
+        return Gate::allows('owner-course',$course);
     }
 
     /**

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Course;
 use App\Models\Module;
 use App\Http\Requests\ModuleStoreUpdatetRequest;
+use Gate;
 
 class ModuleController extends Controller
 {
@@ -19,6 +20,10 @@ class ModuleController extends Controller
 
     public function byCourseId($id){
       $course = Course::find($id);
+
+      if(Gate::denies('owner-course',$course))
+        return redirect()->back();
+
       $modules = ($course->modules()->paginate($this->totalPage));
 
       $title = "Módulos do Curso: {$course->name}";
@@ -106,9 +111,11 @@ class ModuleController extends Controller
      */
     public function destroy(Request $request, $id)
     {
-      $course = $request->get('course_id'); // recupera o id do curso, para redirecionar praa ele qd excluir
-
       $module =  $this->module->find($id);
+
+      $course = $module->course;
+
+      $this->authorize('owner-course',$course);
 
       $lessons = $module->lessons()->count();
 

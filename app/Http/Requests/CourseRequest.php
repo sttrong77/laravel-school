@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Models\Course;
 
 class CourseRequest extends FormRequest
 {
@@ -14,6 +15,7 @@ class CourseRequest extends FormRequest
     public function authorize()
     {
         return true;
+
     }
 
     /**

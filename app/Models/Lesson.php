@@ -9,5 +9,7 @@ class Lesson extends Model
 {
   protected $fillable = ['module_id','name','url','description','free','video'];
 
-
+  public function module(){
+    return $this->belongsTo(Module::class);
+  }
 }

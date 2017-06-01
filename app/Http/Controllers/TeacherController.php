@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Course;
 use App\Models\Sale;
 use App\Http\Requests\CourseRequest;
+use Gate;
 
 class TeacherController extends Controller
 {
@@ -28,24 +29,7 @@ class TeacherController extends Controller
   public function storeCurso(CourseRequest $request){
     $dataForm = $request->all();
 
-    $dataForm['published'] = isset($dataForm['published']);
-    $dataForm['free']      = isset($dataForm['free']);
-
-    if($request->hasFile('image')){
-      $image = $request->file('image');
-      $nameImage = $dataForm['url'].'.'.$image->getClientOriginalExtension();
-
-      $dataForm['image'] = $nameImage;
-
-      $upload = $image->storeAs('courses', $nameImage );
-
-      if(!$upload)
-        return redirect()->back()->with('error','Falha no upload da imagem');
-    }
-
-    $dataForm['user_id'] = auth()->user()->id;
-
-    $insert = $this->course->create($dataForm);
+    $insert = $this->course->newCourse($dataForm);
 
     if($insert)
       return redirect()->route('teacher.courses')->with('success','Novo curso cadastrado com sucesso');
@@ -56,7 +40,7 @@ class TeacherController extends Controller
 
   public function courses(){
     $title = 'Instrutor: Meus cursos';
-    $courses = $this->course->where('user_id', auth()->user()->id)->paginate($this->totalPage);//pega cursos do professor logado
+    $courses = $this->course->userByAuth()->paginate($this->totalPage);//pega cursos do professor logado
 
     return view('school.teacher.courses',compact('courses','title'));
   }
@@ -66,18 +50,19 @@ class TeacherController extends Controller
     $keySearch = $dataForm['key-search'];
     $title = "Instrutor: Meus cursos - Resultados para {$keySearch}";
 
-    $courses = $this->course
-            ->where('user_id', auth()->user()->id)
-            ->where('name','LIKE',"%{$keySearch}%")
-            ->orWhere('description','LIKE',"%{$keySearch}%")
-            ->paginate($this->totalPage);
+    $courses = $this->course->search($keySearch);
 
     return view('school.teacher.courses',compact('courses','title', 'dataForm'));
   }
 
   public function editCourse(Category $category, $id){
     $course = $this->course->find($id);
+
+    if(Gate::denies('owner-course', $course))
+      return redirect()->back();
+
     $title = "Editando Curso {$course->name}";
+
     $categories = $category::pluck('name', 'id');
     return view('school.teacher.edit-course', compact('categories','title', 'course'));
 
@@ -87,30 +72,12 @@ class TeacherController extends Controller
   public function updateCourse(CourseRequest $request, $id){
 
     $course = $this->course->find($id);
+
+    $this->authorize('owner-course',$course);
+
     $dataForm = $request->all();
 
-    $dataForm['published'] = isset($dataForm['published']);
-    $dataForm['free']      = isset($dataForm['free']);
-
-    if($request->hasFile('image')){
-      $image = $request->file('image');
-
-      if($course->image == null)
-        $nameImage = $course->image;
-      else
-        $nameImage = $dataForm['url'].'.'.$image->getClientOriginalExtension();
-
-        $dataForm['image'] = $nameImage;
-
-      $upload = $image->storeAs('courses',  $nameImage );
-
-      if(!$upload)
-        return redirect()->back()->with('error','Falha no upload da imagem');
-    }
-
-    $dataForm['user_id'] = auth()->user()->id;
-
-    $update = $course->update($dataForm);
+    $update = $course->updateCourse($dataForm);
 
     if($update)
       return redirect()->route('teacher.courses')->with('success','Curso atualizado com sucesso');
@@ -121,6 +88,8 @@ class TeacherController extends Controller
 
   public function destroyCourse($idCourse){
     $course = $this->course->find($idCourse);
+
+    $this->authorize('owner-course',$course);
 
     $modules = $course->modules()->count(); //qtd de modulos
 
